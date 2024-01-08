@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Test2 {
@@ -13,13 +14,13 @@ public class Test2 {
         list.add(emp3);
         System.out.println("Before sorting \n" + list);
         System.out.println("After sorting list");
-        Collections.sort(list);
+        Collections.sort(list, new SalaryComparator());
         System.out.println(list);
 
     }
 }
 
-class Employee implements Comparable<Employee>{
+class Employee implements Comparable<Employee> {
     int id;
     String name;
     String surname;
@@ -53,5 +54,35 @@ class Employee implements Comparable<Employee>{
 //        }
         //  return this.id - anotherEmp.id; // короткий способ сортировки по id
         return this.name.compareTo(anotherEmp.name); // сортировка по имени
-        }
+    }
 }
+    class IdComparator implements Comparator<Employee> {
+
+        @Override
+        public int compare(Employee o1, Employee o2) {
+            if (o1.id == o2.id) {
+                return 0;
+            } else if (o1.id < o2.id) {
+                return -1;
+            } else {
+                return 1;
+            }
+
+        }
+    }
+
+class NameComparator implements Comparator<Employee> {
+
+    @Override
+    public int compare(Employee o1, Employee o2) {
+        return o1.name.compareTo(o2.name);
+    }
+}
+
+class SalaryComparator implements Comparator<Employee> {
+    @Override
+    public int compare(Employee o1, Employee o2) {
+        return o1.salary - o2.salary;
+    }
+}
+
